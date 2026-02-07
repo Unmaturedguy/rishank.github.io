@@ -3,75 +3,181 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>💌 One question...</title>
+  <title>💌 For Baby Chowdhury</title>
   <style>
     body{
-      margin:0; height:100vh; display:grid; place-items:center;
+      margin:0; min-height:100vh; display:grid; place-items:center;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: radial-gradient(circle at top, #ffe6f1, #fff);
-      color:#1b1b1b;
+      background: radial-gradient(circle at top, #ffe6f1, #ffffff);
+      color:#151515; padding:24px;
     }
     .card{
-      width:min(520px, 92vw);
-      background:#ffffffcc; backdrop-filter: blur(8px);
+      width:min(760px, 94vw);
+      background:#ffffffd9; backdrop-filter: blur(10px);
       border:1px solid #ffd1e6;
-      border-radius:24px; padding:28px;
-      box-shadow: 0 16px 40px rgba(0,0,0,.08);
-      text-align:center;
+      border-radius:24px; padding:26px;
+      box-shadow: 0 18px 55px rgba(0,0,0,.10);
+      text-align:center; overflow:hidden;
     }
-    h1{ margin:0 0 10px; font-size: 28px;}
-    p{ margin:0 0 22px; font-size: 16px; opacity:.9;}
-    .btns{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+    h1{margin:0 0 6px;font-size:30px}
+    .sub{margin:0 0 16px;opacity:.8}
+
+    .msg{
+      text-align:left; line-height:1.6;
+      background:#fff; border:1px solid #ffe0ee;
+      border-radius:16px; padding:16px;
+      margin:16px 0 14px;
+      white-space:pre-wrap;
+    }
+
+    /* Single image that changes on every NO click */
+    .reactionWrap{
+      margin: 14px 0 18px;
+      display:grid;
+      gap:10px;
+      justify-items:center;
+    }
+    .reaction{
+      width:min(520px, 100%);
+      height:280px;
+      object-fit:cover;
+      border-radius:18px;
+      border:1px solid #ffe0ee;
+      background:#f7f7f7;
+    }
+    .hint{font-size:12px;opacity:.7;margin:0}
+
+    .btns{
+      display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+      margin-top:8px;
+    }
     button{
       border:0; padding:12px 18px; border-radius:999px;
       font-size:16px; cursor:pointer;
       box-shadow: 0 10px 18px rgba(0,0,0,.08);
       transition: transform .12s ease;
+      will-change: transform;
     }
-    button:active{ transform: scale(.98); }
-    .yes{ background:#ff4d88; color:white; }
-    .no{ background:#f2f2f2; }
-    .footer{ margin-top:18px; font-size:12px; opacity:.7;}
-    .hidden{ display:none; }
+    button:active{transform:scale(.98)}
+    .yes{background:#ff4d88;color:#fff}
+    .no{background:#f2f2f2}
+
+    .media{
+      display:none;
+      gap:14px;
+      margin-top:16px;
+      justify-items:center;
+    }
+    video{
+      width:100%;
+      max-width:640px;
+      border-radius:16px;
+      border:1px solid #ffe0ee;
+      background:#000;
+      outline:none;
+    }
+    .footer{margin-top:16px;font-size:12px;opacity:.7}
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>Hey 💖</h1>
-    <p>I made you a tiny website for one important question…</p>
+    <h1>Hey Baby Chowdhury 💖</h1>
+    <p class="sub">I made this just for you.</p>
 
-    <h2 style="margin:0 0 18px;">Will you be my Valentine?</h2>
+    <div class="msg">
+I swear, every time I look at you I get stuck for a second. Your eyes have this softness in them that makes everything feel calmmmm in the chaos (remember), and your smile? It’s unfair how pretty it is. The way your cheeks lift when you laugh, the tiny expressions you make when you’re thinking, even the way you look at me when I’m talking.
+I already know you asked me to be your Valentine… but guess what? I’m asking you to be my Valentine every single year. And every year, I’m going to do something special for you, no matter what. We’re only going to grow stronger, closer, ANWAYSSS I LOVEE YOU —
+Will you be my Valentine? ❤️
+    </div>
+
+    <!-- This image changes every time NO is clicked -->
+    <div class="reactionWrap">
+      <img id="reactionImg" class="reaction" src="assets/pic-01.jpg" alt="reaction">
+      <p class="hint" id="hintText">Don’t say no 😭</p>
+    </div>
+
+    <h2 style="margin:0 0 10px;">Will you be my Valentine?</h2>
 
     <div class="btns" id="btns">
       <button class="yes" id="yesBtn">Yes 💘</button>
       <button class="no" id="noBtn">No 🙈</button>
     </div>
 
-    <div id="result" class="hidden">
-      <h2 style="margin:10px 0 8px;">YAY!!! 🥰</h2>
-      <p id="msg">Okay… now I owe you a proper date 💐</p>
-      <p class="footer">Screenshot this and send it to me 😄</p>
+    <!-- Video hidden until YES -->
+    <div class="media" id="media">
+      <video id="vdo" src="assets/hero.mp4" controls playsinline preload="metadata"></video>
+      <p class="footer">Press play 😄</p>
     </div>
 
-    <p class="footer">Made with ❤️ on GitHub Pages</p>
+    <p class="footer">Made with ❤️</p>
   </div>
 
   <script>
+    // NO only shrinks on CLICK.
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
     const btns = document.getElementById("btns");
-    const result = document.getElementById("result");
+    const media = document.getElementById("media");
+    const vdo = document.getElementById("vdo");
 
-    // Make "No" run away a bit 😄
-    noBtn.addEventListener("mouseenter", () => {
-      const x = (Math.random() * 200) - 100;
-      const y = (Math.random() * 160) - 80;
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    const reactionImg = document.getElementById("reactionImg");
+    const hintText = document.getElementById("hintText");
+
+    // 5 images shown in order every NO click
+    const pics = [
+      "assets/pic-01.jpg",
+      "assets/pic-02.jpg",
+      "assets/pic-03.jpg",
+      "assets/pic-04.jpg",
+      "assets/pic-05.jpg"
+    ];
+
+    const hints = [
+      "Don’t say no 😭",
+      "Come on… please? 🥺",
+      "Okay now you’re just testing me 😤",
+      "Last warning 😳",
+      "Fine. Only YES remains 😌"
+    ];
+
+    let noClicks = 0;
+    const maxNoClicks = 5;
+
+    let scale = 1;
+    const shrinkFactor = 0.60;
+
+    noBtn.addEventListener("click", () => {
+      noClicks++;
+
+      // Shrink the NO button
+      scale *= shrinkFactor;
+      noBtn.style.transform = `scale(${scale})`;
+
+      // Swap the image
+      const idx = Math.min(noClicks, pics.length - 1);
+      reactionImg.src = pics[idx];
+      hintText.textContent = hints[Math.min(noClicks, hints.length - 1)];
+
+      // After 5 clicks, hide NO completely
+      if (noClicks >= maxNoClicks) {
+        noBtn.style.display = "none";
+      }
     });
 
-    yesBtn.addEventListener("click", () => {
-      btns.classList.add("hidden");
-      result.classList.remove("hidden");
+    yesBtn.addEventListener("click", async () => {
+      // Hide buttons, show video
+      btns.style.display = "none";
+      media.style.display = "grid";
+
+      // Reload after becoming visible (more reliable)
+      vdo.load();
+
+      try {
+        await vdo.play();
+      } catch (e) {
+        // Autoplay may be blocked; user can press play (controls are enabled)
+        console.log("Play blocked:", e);
+      }
     });
   </script>
 </body>
