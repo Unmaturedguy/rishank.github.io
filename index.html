@@ -30,6 +30,7 @@
       white-space:pre-wrap;
     }
 
+    /* Single image that changes on every NO click */
     .reactionWrap{
       margin: 14px 0 18px;
       display:grid;
@@ -91,7 +92,7 @@ Will you be my Valentine? ❤️
 
     <!-- Image changes every time NO is clicked -->
     <div class="reactionWrap">
-      <img id="reactionImg" class="reaction" src="kiss.jpeg" alt="reaction">
+      <img id="reactionImg" class="reaction" src="assets/kiss.jpeg" alt="reaction">
       <p class="hint" id="hintText">Don’t say no 😭</p>
     </div>
 
@@ -105,7 +106,7 @@ Will you be my Valentine? ❤️
     <!-- Video hidden until YES -->
     <div class="media" id="media">
       <video id="vdo" controls playsinline preload="metadata">
-        <source src="cute.mp4" type="video/mp4">
+        <source src="assets/cute.mp4" type="video/mp4">
         Your browser can’t play this video.
       </video>
       <p class="footer">Press play 😄</p>
@@ -124,13 +125,13 @@ Will you be my Valentine? ❤️
     const reactionImg = document.getElementById("reactionImg");
     const hintText = document.getElementById("hintText");
 
-    // EXACT filenames in your repo (ROOT)
+    // EXACT filenames inside /assets
     const pics = [
-      "kiss.jpeg",
-      "mirror.jpeg",
-      "door.jpeg",
-      "table.jpeg",
-      "stare.jpeg"
+      "assets/kiss.jpeg",
+      "assets/mirror.jpeg",
+      "assets/door.jpeg",
+      "assets/table.jpeg",
+      "assets/stare.jpeg"
     ];
 
     const hints = [
@@ -143,30 +144,42 @@ Will you be my Valentine? ❤️
 
     let noClicks = 0;
     const maxNoClicks = 5;
+
     let scale = 1;
     const shrinkFactor = 0.60;
 
     noBtn.addEventListener("click", () => {
       noClicks++;
 
+      // Shrink the NO button
       scale *= shrinkFactor;
       noBtn.style.transform = `scale(${scale})`;
 
+      // Swap the image
       const idx = Math.min(noClicks, pics.length - 1);
       reactionImg.src = pics[idx];
       hintText.textContent = hints[Math.min(noClicks, hints.length - 1)];
 
+      // After 5 clicks, hide NO completely
       if (noClicks >= maxNoClicks) {
         noBtn.style.display = "none";
       }
     });
 
     yesBtn.addEventListener("click", async () => {
+      // Hide buttons, show video
       btns.style.display = "none";
       media.style.display = "grid";
 
+      // Reload after becoming visible (more reliable)
       vdo.load();
-      try { await vdo.play(); } catch (e) {}
+
+      try {
+        await vdo.play();
+      } catch (e) {
+        // Autoplay may be blocked; user can press play (controls are enabled)
+        console.log("Play blocked:", e);
+      }
     });
   </script>
 </body>
