@@ -81,7 +81,7 @@
 </head>
 <body>
   <div class="card">
-    <h1> For Mrs Chatterjee 💖</h1>
+    <h1>For Mrs Chatterjee 💖</h1>
     <p class="sub">I made this only for you.</p>
 
     <div class="msg">
@@ -92,7 +92,7 @@ Will you be my Valentine? ❤️
 
     <!-- This image changes every time NO is clicked -->
     <div class="reactionWrap">
-      <img id="reactionImg" class="reaction" src="assets/pic-01.jpg" alt="reaction">
+      <img id="reactionImg" class="reaction" src="assets/kiss.jpeg" alt="reaction">
       <p class="hint" id="hintText">Don’t say no 😭</p>
     </div>
 
@@ -105,7 +105,10 @@ Will you be my Valentine? ❤️
 
     <!-- Video hidden until YES -->
     <div class="media" id="media">
-      <video id="vdo" src="assets/hero.mp4" controls playsinline preload="metadata"></video>
+      <video id="vdo" controls playsinline preload="metadata">
+        <source src="assets/cute.mp4" type="video/mp4">
+        Your browser can’t play this video.
+      </video>
       <p class="footer">Press play 😄</p>
     </div>
 
@@ -125,11 +128,11 @@ Will you be my Valentine? ❤️
 
     // 5 images shown in order every NO click
     const pics = [
-      "assets/pic-01.jpg",
-      "assets/pic-02.jpg",
-      "assets/pic-03.jpg",
-      "assets/pic-04.jpg",
-      "assets/pic-05.jpg"
+      "assets/kiss.jpeg",
+      "assets/mirror.jpeg",
+      "assets/door.jpeg",
+      "assets/table.jpeg",
+      "assets/stare.jpeg"
     ];
 
     const hints = [
