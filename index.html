@@ -81,8 +81,8 @@
 </head>
 <body>
   <div class="card">
-    <h1>For Mrs Chatterjee 💖</h1>
-    <p class="sub">I made this only for you.</p>
+    <h1>Hey Mrs Chatterjee 💖</h1>
+    <p class="sub">I made this just for you.</p>
 
     <div class="msg">
 I swear, every time I look at you I get stuck for a second. Your eyes have this softness in them that makes everything feel calmmmm in the chaos (remember), and your smile? It’s unfair how pretty it is. The way your cheeks lift when you laugh, the tiny expressions you make when you’re thinking, even the way you look at me when I’m talking.
@@ -90,13 +90,13 @@ I already know you asked me to be your Valentine… but guess what? I’m asking
 Will you be my Valentine? ❤️
     </div>
 
-    <!-- Image changes every time NO is clicked -->
+    <!-- This image changes every time NO is clicked -->
     <div class="reactionWrap">
-      <img id="reactionImg" class="reaction" src="assets/kiss.jpeg" alt="reaction">
-      <p class="hint" id="hintText">Don’t say no 😭</p>
+      <img id="reactionImg" class="reaction" src="assets/pic-01.jpg" alt="reaction">
+      <p class="hint" id="hintText">Don’t say no Mimi 😭</p>
     </div>
 
-    <h2 style="margin:0 0 10px;">Will you be my Valentine?</h2>
+    <h2 style="margin:0 0 10px;">Will you be my Valentine Mimi ?</h2>
 
     <div class="btns" id="btns">
       <button class="yes" id="yesBtn">Yes 💘</button>
@@ -105,10 +105,7 @@ Will you be my Valentine? ❤️
 
     <!-- Video hidden until YES -->
     <div class="media" id="media">
-      <video id="vdo" controls playsinline preload="metadata">
-        <source src="assets/cute.mp4" type="video/mp4">
-        Your browser can’t play this video.
-      </video>
+      <video id="vdo" src="assets/hero.mp4" controls playsinline preload="metadata"></video>
       <p class="footer">Press play 😄</p>
     </div>
 
@@ -116,6 +113,7 @@ Will you be my Valentine? ❤️
   </div>
 
   <script>
+    // NO only shrinks on CLICK.
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
     const btns = document.getElementById("btns");
@@ -125,20 +123,20 @@ Will you be my Valentine? ❤️
     const reactionImg = document.getElementById("reactionImg");
     const hintText = document.getElementById("hintText");
 
-    // EXACT filenames inside /assets
+    // 5 images shown in order every NO click
     const pics = [
-      "assets/kiss.jpeg",
-      "assets/mirror.jpeg",
-      "assets/door.jpeg",
-      "assets/table.jpeg",
-      "assets/stare.jpeg"
+      "assets/door.jpg",
+      "assets/table.jpg",
+      "assets/kiss.jpg",
+      "assets/stare.jpg",
+      "assets/mirror.jpg"
     ];
 
     const hints = [
-      "Don’t say no 😭",
-      "Come on… please? 🥺",
+      "Don’t say no Mimi😭",
+      "Come on… Mimi please? 🥺",
       "Okay now you’re just testing me 😤",
-      "Last warning 😳",
+      "Last warning Mimi 😳",
       "Fine. Only YES remains 😌"
     ];
 
@@ -184,3 +182,7 @@ Will you be my Valentine? ❤️
   </script>
 </body>
 </html>
+<video id="vdo" controls playsinline preload="metadata">
+  <source src="assets/cute.mp4" type="video/mp4">
+  Your browser can’t play this video.
+</video>
