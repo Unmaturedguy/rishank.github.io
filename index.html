@@ -30,6 +30,7 @@
       white-space:pre-wrap;
     }
 
+    /* Single image that changes on every NO click */
     .reactionWrap{
       margin: 14px 0 18px;
       display:grid;
@@ -81,7 +82,7 @@
 <body>
   <div class="card">
     <h1>Hey Mrs Chatterjee 💖</h1>
-    <p class="sub">I made this just for you.</p>
+    <p class="sub">I made this only for you.</p>
 
     <div class="msg">
 I swear, every time I look at you I get stuck for a second. Your eyes have this softness in them that makes everything feel calmmmm in the chaos (remember), and your smile? It’s unfair how pretty it is. The way your cheeks lift when you laugh, the tiny expressions you make when you’re thinking, even the way you look at me when I’m talking.
@@ -89,23 +90,22 @@ I already know you asked me to be your Valentine… but guess what? I’m asking
 Will you be my Valentine? ❤️
     </div>
 
+    <!-- This image changes every time NO is clicked -->
     <div class="reactionWrap">
-      <img id="reactionImg" class="reaction" src="assets/door.jpeg" alt="reaction">
-      <p class="hint" id="hintText">Don’t say no Mimi 😭</p>
+      <img id="reactionImg" class="reaction" src="assets/pic-01.jpg" alt="reaction">
+      <p class="hint" id="hintText">Don’t say no 😭</p>
     </div>
 
-    <h2 style="margin:0 0 10px;">Will you be my Valentine Mimi?</h2>
+    <h2 style="margin:0 0 10px;">Will you be my Valentine?</h2>
 
     <div class="btns" id="btns">
       <button class="yes" id="yesBtn">Yes 💘</button>
       <button class="no" id="noBtn">No 🙈</button>
     </div>
 
+    <!-- Video hidden until YES -->
     <div class="media" id="media">
-      <video id="vdo" controls playsinline preload="metadata">
-        <source src="assets/smile.mp4" type="video/mp4">
-        Your browser can’t play this video.
-      </video>
+      <video id="vdo" src="assets/hero.mp4" controls playsinline preload="metadata"></video>
       <p class="footer">Press play 😄</p>
     </div>
 
@@ -113,6 +113,7 @@ Will you be my Valentine? ❤️
   </div>
 
   <script>
+    // NO only shrinks on CLICK.
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
     const btns = document.getElementById("btns");
@@ -122,6 +123,7 @@ Will you be my Valentine? ❤️
     const reactionImg = document.getElementById("reactionImg");
     const hintText = document.getElementById("hintText");
 
+    // 5 images shown in order every NO click
     const pics = [
       "assets/door.jpeg",
       "assets/table.jpeg",
@@ -131,8 +133,8 @@ Will you be my Valentine? ❤️
     ];
 
     const hints = [
-      "Don’t say no Mimi 😭",
-      "Come on… Mimi please? 🥺",
+      "Don’t say no Mimi😭",
+      "Come on Mimi… please? 🥺",
       "Okay now you’re just testing me 😤",
       "Last warning Mimi 😳",
       "Fine. Only YES remains 😌"
@@ -147,24 +149,41 @@ Will you be my Valentine? ❤️
     noBtn.addEventListener("click", () => {
       noClicks++;
 
+      // Shrink the NO button
       scale *= shrinkFactor;
       noBtn.style.transform = `scale(${scale})`;
 
+      // Swap the image
       const idx = Math.min(noClicks, pics.length - 1);
       reactionImg.src = pics[idx];
       hintText.textContent = hints[Math.min(noClicks, hints.length - 1)];
 
+      // After 5 clicks, hide NO completely
       if (noClicks >= maxNoClicks) {
         noBtn.style.display = "none";
       }
     });
 
     yesBtn.addEventListener("click", async () => {
+      // Hide buttons, show video
       btns.style.display = "none";
       media.style.display = "grid";
+
+      // Reload after becoming visible (more reliable)
       vdo.load();
-      try { await vdo.play(); } catch (e) { console.log(e); }
+
+      try {
+        await vdo.play();
+      } catch (e) {
+        // Autoplay may be blocked; user can press play (controls are enabled)
+        console.log("Play blocked:", e);
+      }
     });
   </script>
 </body>
 </html>
+<video id="vdo" controls playsinline preload="metadata">
+  <source src="assets/smile.mp4" type="video/mp4">
+  Your browser can’t play this video.
+</video>
+
