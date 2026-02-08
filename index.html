@@ -61,4 +61,115 @@
     .yes{background:#ff4d88;color:#fff}
     .no{background:#f2f2f2}
 
-    .media
+    .media{
+      display:none;
+      gap:14px;
+      margin-top:16px;
+      justify-items:center;
+    }
+    video{
+      width:100%;
+      max-width:640px;
+      border-radius:16px;
+      border:1px solid #ffe0ee;
+      background:#000;
+      outline:none;
+    }
+    .footer{margin-top:16px;font-size:12px;opacity:.7}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Hey Mrs Chatterjee 💖</h1>
+    <p class="sub">I made this just for you.</p>
+
+    <div class="msg">
+I swear, every time I look at you I get stuck for a second. Your eyes have this softness in them that makes everything feel calmmmm in the chaos (remember), and your smile? It’s unfair how pretty it is. The way your cheeks lift when you laugh, the tiny expressions you make when you’re thinking, even the way you look at me when I’m talking.
+I already know you asked me to be your Valentine… but guess what? I’m asking you to be my Valentine every single year. And every year, I’m going to do something special for you, no matter what. We’re only going to grow stronger, closer, ANWAYSSS I LOVEE YOU —
+Will you be my Valentine? ❤️
+    </div>
+
+    <div class="reactionWrap">
+      <img id="reactionImg" class="reaction" src="assets/door.jpg" alt="reaction">
+      <p class="hint" id="hintText">Don’t say no Mimi 😭</p>
+    </div>
+
+    <h2 style="margin:0 0 10px;">Will you be my Valentine Mimi?</h2>
+
+    <div class="btns" id="btns">
+      <button class="yes" id="yesBtn">Yes 💘</button>
+      <button class="no" id="noBtn">No 🙈</button>
+    </div>
+
+    <!-- ONLY ONE VIDEO, ONLY smile.mp4 -->
+    <div class="media" id="media">
+      <video id="vdo" controls playsinline preload="metadata">
+        <source src="assets/smile.mp4" type="video/mp4">
+        Your browser can’t play this video.
+      </video>
+      <p class="footer">Press play 😄</p>
+    </div>
+
+    <p class="footer">Made with ❤️</p>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const btns = document.getElementById("btns");
+    const media = document.getElementById("media");
+    const vdo = document.getElementById("vdo");
+
+    const reactionImg = document.getElementById("reactionImg");
+    const hintText = document.getElementById("hintText");
+
+    // Make sure these filenames match EXACTLY what is in /assets
+    const pics = [
+      "assets/door.jpg",
+      "assets/table.jpg",
+      "assets/kiss.jpg",
+      "assets/stare.jpg",
+      "assets/mirror.jpg"
+    ];
+
+    const hints = [
+      "Don’t say no Mimi 😭",
+      "Come on… Mimi please? 🥺",
+      "Okay now you’re just testing me 😤",
+      "Last warning Mimi 😳",
+      "Fine. Only YES remains 😌"
+    ];
+
+    let noClicks = 0;
+    const maxNoClicks = 5;
+    let scale = 1;
+    const shrinkFactor = 0.60;
+
+    noBtn.addEventListener("click", () => {
+      noClicks++;
+
+      scale *= shrinkFactor;
+      noBtn.style.transform = `scale(${scale})`;
+
+      const idx = Math.min(noClicks, pics.length - 1);
+      reactionImg.src = pics[idx];
+      hintText.textContent = hints[Math.min(noClicks, hints.length - 1)];
+
+      if (noClicks >= maxNoClicks) {
+        noBtn.style.display = "none";
+      }
+    });
+
+    yesBtn.addEventListener("click", async () => {
+      btns.style.display = "none";
+      media.style.display = "grid";
+
+      vdo.load();
+      try { await vdo.play(); } catch (e) {
+        // autoplay may be blocked; controls still let user press play
+        console.log("Play blocked:", e);
+      }
+    });
+  </script>
+</body>
+</html>
